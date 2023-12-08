@@ -1,14 +1,16 @@
 import axios from "axios";
-const baseURL = "http://localhost:4500/api/"
+import { getTokenFromAPP } from "../hooks/useToken";
+const baseURL = "http://localhost:4500/api/";
 const client = axios.create({
-  baseURL:baseURL,
+  baseURL: baseURL,
   headers: {
     Accept: "application/json",
   },
 });
 
 const wrapperApi = (method, options) => {
-  let token = "";
+  const userInfo = getTokenFromAPP();
+  const token = userInfo?.token;
   return client.request({
     method,
     headers: { Authorization: `Bearer ${token ? token : ""}` },
@@ -16,5 +18,4 @@ const wrapperApi = (method, options) => {
   });
 };
 
-
-export default wrapperApi
+export default wrapperApi;

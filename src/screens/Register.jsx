@@ -15,12 +15,14 @@ const Register = () => {
       email: "",
       password: "",
       cpassword: "",
+      name:""
     },
     validationSchema: registerSchema,
     onSubmit: async (values) => {
       const res = await registerUser({
         email: values.email,
         password: values.password,
+        name:values.name
       });
       if (res?.status === 201) {
         alert("Register successful, please login.");
@@ -42,6 +44,22 @@ const Register = () => {
             consequuntur
           </p>
           <form onSubmit={formik.handleSubmit}>
+          <div className="mt-2">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                placeholder="Enter your name "
+                type="name"
+                required
+                name="name"
+                onClick={() => setError("")}
+                {...formik.getFieldProps("name")}
+              />
+              {formik.touched.name && formik.errors.name ? (
+                <span className="text-red-500 text-[12px]">
+                  {formik.errors.name}
+                </span>
+              ) : null}
+            </div>
             <div className="mt-2">
               <Label htmlFor="Email">Email</Label>
               <Input

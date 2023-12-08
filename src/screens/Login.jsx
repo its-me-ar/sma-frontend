@@ -6,11 +6,9 @@ import { AuthLayout } from "../Layouts/AuthLayout";
 import { useFormik } from "formik";
 import { loginSchema } from "../validations/login";
 import { loginUser } from "../services/api.services";
-import { UserContext } from "../App";
 
-export const Login = () => {
+export const Login = ({ setToken }) => {
   const [error, setError] = useState(null);
-  const { setUserInfo } = useContext(UserContext);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -20,11 +18,7 @@ export const Login = () => {
     onSubmit: async (values) => {
       const res = await loginUser(values);
       if (res?.status === 200 && res?.data?.token) {
-        setUserInfo({
-          token: res?.data?.token,
-          isLogin: true,
-        });
-        window.sessionStorage.setItem("token", res?.data?.token);
+        await setToken({ token: res?.data?.token, userInfo: res?.data?.user });
       } else {
         setError(res?.data?.message);
       }

@@ -2,3 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #a0a0a0;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a5a5a5;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+}
+
+::-webkit-scrollbar-track-piece:end {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track-piece:start {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+.video-react {
+  background-color: transparent !important;
+}
+
+.video-react .video-react-video{
+  border-radius: 10px;
+}
+
+.video-react .video-react-control-bar {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}

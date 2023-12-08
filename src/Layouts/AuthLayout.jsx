@@ -7,7 +7,6 @@ export const AuthLayout = ({ children }) => {
         <div className="lg:w-[70%] md:w-[50%]  lg:block md:block hidden">
           <img src={bgImage} alt="SMA APP" className="object-cover h-[100vh]" />
         </div>
-
         {children}
       </div>
     </div>
