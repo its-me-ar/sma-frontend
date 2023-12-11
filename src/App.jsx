@@ -8,7 +8,7 @@ import NotFound from "./screens/NotFound";
 import Profile from "./screens/Profile";
 import Friends from "./screens/Friends";
 import Notification from "./screens/Notification";
-import User from "./screens/user";
+import User from "./screens/UserActivity";
 
 export const UserContext = createContext();
 
