@@ -1,5 +1,5 @@
 import { Login } from "./screens/Login";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate, HashRouter } from "react-router-dom";
 import Register from "./screens/Register";
 import { createContext} from "react";
 import useToken from "./hooks/useToken";
@@ -16,7 +16,7 @@ function App() {
   const userData= userInfo?.userInfo;
   return (
     <UserContext.Provider value={{ userData,token:userInfo?.token }}>
-      <BrowserRouter basename="/">
+      <HashRouter basename="/">
         <Routes>
           {isINIT &&
             (isLogin ? (
@@ -38,7 +38,7 @@ function App() {
             ))}
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </UserContext.Provider>
   );
 }
