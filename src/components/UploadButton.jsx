@@ -8,16 +8,16 @@ const UploadButton = ({ onChange, setSelectedFileName, selectedFileName,fileInpu
   };
 
   const validateFile = (file) => {
-    const maxSizeImage = 5 * 1024 * 1024;
-    const maxSizeVideo = 20 * 1024 * 1024;
+    const maxSizeImage = 2 * 1024 * 1024;
+    const maxSizeVideo = 4 * 1024 * 1024;
 
     if (file.size > maxSizeImage && file.type.startsWith("image/")) {
-      alert("Please select a valid image file (max size: 5MB).");
+      alert("Please select a valid image file (max size: 2MB).");
       return false;
     }
 
     if (file.size > maxSizeVideo && file.type.startsWith("video/")) {
-      alert("Please select a valid video file (max size: 20MB).");
+      alert("Please select a valid video file (max size: 4MB).");
       return false;
     }
 
