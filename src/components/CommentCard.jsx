@@ -1,7 +1,7 @@
 import React from "react";
 import ReactTimeago from "react-timeago";
 import profileIcon from "../assets/profile.jpg";
-const CommentCard = ({ comment }) => {
+const CommentCard = ({ comment ,isGraph}) => {
   return (
     <div>
       <div className="flex flex-row items-center p-4">
@@ -18,7 +18,7 @@ const CommentCard = ({ comment }) => {
             </p>
             <div className="mt-[-4px] ">
               <ReactTimeago
-                date={comment?.createdAt}
+                date={isGraph ? parseInt(comment?.createdAt) : comment?.createdAt}
                 className="text-[10px] "
               />
             </div>

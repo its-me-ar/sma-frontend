@@ -6,8 +6,7 @@ import CommentCard from "./CommentCard";
 import { RiMessage3Line } from "react-icons/ri";
 import CommentModal from "./CommentModal";
 import profileIcon from "../assets/profile.jpg";
-
-const Post = ({ post, refreshData }) => {
+const Post = ({ post, refreshData, isGraph }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCover, setIscover] = useState(true);
   return (
@@ -25,7 +24,10 @@ const Post = ({ post, refreshData }) => {
                 {post?.userId?.name}
               </h2>
               <div className="mt-[-10px]">
-                <TimeAgo date={post?.createdAt} className="text-[13px] " />
+                <TimeAgo
+                  date={isGraph ? parseInt(post?.createdAt) : post?.createdAt}
+                  className="text-[13px] "
+                />
               </div>
             </div>
           </div>
@@ -74,7 +76,7 @@ const Post = ({ post, refreshData }) => {
             </div>
 
             {post?.comments?.map((item, index) => {
-              return <CommentCard comment={item} key={index} />;
+              return <CommentCard comment={item} key={index} isGraph={isGraph} />;
             })}
           </div>
         </div>

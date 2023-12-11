@@ -30,10 +30,7 @@ export const Login = ({ setToken }) => {
       <div className="lg:w-[30%] md:w-[50%] w-full">
         <div className="flex flex-col p-10 mt-[20%]">
           <h1 className="text-[24px] font-semibold uppercase">Login</h1>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit,
-            consequuntur
-          </p>
+          <p>SMA helps you connect and share with the people in your life.</p>
           <form onSubmit={formik.handleSubmit}>
             <div className="mt-2">
               <Label htmlFor="Email">Email</Label>

@@ -15,14 +15,14 @@ const Register = () => {
       email: "",
       password: "",
       cpassword: "",
-      name:""
+      name: "",
     },
     validationSchema: registerSchema,
     onSubmit: async (values) => {
       const res = await registerUser({
         email: values.email,
         password: values.password,
-        name:values.name
+        name: values.name,
       });
       if (res?.status === 201) {
         alert("Register successful, please login.");
@@ -39,12 +39,9 @@ const Register = () => {
           <h1 className="text-[24px] font-semibold uppercase">
             Create a new account
           </h1>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit,
-            consequuntur
-          </p>
+          <p>It's quick and easy.</p>
           <form onSubmit={formik.handleSubmit}>
-          <div className="mt-2">
+            <div className="mt-2">
               <Label htmlFor="name">Name</Label>
               <Input
                 placeholder="Enter your name "

@@ -8,6 +8,7 @@ import NotFound from "./screens/NotFound";
 import Profile from "./screens/Profile";
 import Friends from "./screens/Friends";
 import Notification from "./screens/Notification";
+import User from "./screens/user";
 
 export const UserContext = createContext();
 
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/profile" element={<Profile setToken={setToken} />} />
                 <Route path="/friends" element={<Friends />} />
+                <Route path="/user/:id" element={<User />} />
                 <Route path="/notification" element={<Notification />} />
                 <Route
                   path="/sign-up"
