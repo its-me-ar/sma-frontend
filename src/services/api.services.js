@@ -186,3 +186,15 @@ export const getUserData = async (id) => {
     return error?.response;
   }
 };
+
+export const getAllPostByID = async (id) => {
+  try {
+    const options = {
+      url: "/post/"+id,
+    };
+    const res = await wrapperApi("get", options);
+    return res;
+  } catch (error) {
+    return error?.response;
+  }
+};

@@ -20,14 +20,14 @@ const AppLayout = ({ children }) => {
             <Header setIsOpen={setIsOpen} />
           </div>
           <div className="lg:w-[20%] lg:block hidden">
-            <SideBar userInfo={userData} isMobile={false} />
+            <SideBar  userInfo={userData} isMobile={false} />
           </div>
 
           <div className="lg:w-[60%] w-fulll  bg-slate-50 lg:mt-[0px] mt-[60px] overflow-y-auto">
             {children}
           </div>
           <div className="lg:w-[20%] lg:block hidden overflow-y-auto">
-            <RightSideBar />
+            <RightSideBar  userInfo={userData}/>
           </div>
         </div>
         <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
