@@ -132,3 +132,57 @@ export const actionRequestByFriendsID = async (values) => {
     return error?.response;
   }
 };
+
+export const getUserData = async (id) => {
+  const query = `query GetUser($userId:ID!) {
+    getUser(id:$userId) {
+      _id
+      email
+      name
+      bio
+      image
+      friendsList {
+        _id
+      }
+      posts {
+        _id
+        data
+        userId{
+          _id
+          name
+          image
+        }
+        media {
+          _id
+          url
+          type
+        }
+        comments {
+          _id
+          comment
+          createdAt
+          userId{
+            image
+            name
+          }
+        }
+        createdAt
+      }
+      createdAt
+    }
+  }
+  `;
+  try {
+    const options = {
+      url: "/graphql",
+      data: {
+        query: query,
+        variables: { userId: id },
+      },
+    };
+    const res = await wrapperApi("post", options);
+    return res;
+  } catch (error) {
+    return error?.response;
+  }
+};

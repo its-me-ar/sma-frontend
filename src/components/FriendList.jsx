@@ -1,5 +1,6 @@
 import React from "react";
 import profileIcon from "../assets/profile.jpg";
+import { Link } from "react-router-dom";
 const FriendList = ({ list }) => {
   return (
     <div className="lg:p-10 p-2">
@@ -10,7 +11,8 @@ const FriendList = ({ list }) => {
         <div className="grid lg:grid-cols-4 gap-2 md:grid-cols-3 grid-cols-2">
           {list?.map((item, index) => {
             return (
-              <div
+              <Link
+                to={`/user/${item?._id}`}
                 className="mb-8 flex flex-col items-center bg-slate-100 p-5  rounded-xl"
                 key={index}
               >
@@ -25,7 +27,8 @@ const FriendList = ({ list }) => {
                 <p className="overflow-hidden truncate w-[100px] text-center">
                   {item?.bio}
                 </p>
-              </div>
+                
+              </Link>
             );
           })}
         </div>
