@@ -19,6 +19,7 @@ import PostPage from "./screens/PostPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TagFeeds from "./screens/TagFeeds";
+import Discovery from "./screens/Discovery";
 export const UserContext = createContext();
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
                 <Route path="/friends" element={<Friends />} />
                 <Route path="/user/:id" element={<User />} />
                 <Route path="/notification" element={<Notification />} />
+                <Route path="/discover" element={<Discovery />} />
                 <Route path="/post/:id" element={<PostPage isLogin={true} />} />
                 <Route path="/feeds/:tag" element={<TagFeeds  />} />
                 <Route

@@ -37,7 +37,9 @@ export default function useToken() {
   }, []);
 
   const [token, setToken] = useState(undefined);
+  
   const [userInfo, setUserInfo] = useState(null);
+
   const saveToken = useCallback(({ token, userInfo }) => {
     localStorage.setItem("token", token);
     localStorage.setItem("userInfo", JSON.stringify(userInfo));
