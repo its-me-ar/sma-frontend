@@ -198,3 +198,15 @@ export const getAllPostByID = async (id,isGuest) => {
     return error?.response;
   }
 };
+
+export const getPostsByTag = async (tag) => {
+  try {
+    const options = {
+      url: "/post/feeds/"+tag,
+    };
+    const res = await wrapperApi("get", options);
+    return res;
+  } catch (error) {
+    return error?.response;
+  }
+};

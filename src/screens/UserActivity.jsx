@@ -9,6 +9,7 @@ import Post from "../components/Post";
 import ReactTimeago from "react-timeago";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Loader from "../components/Loader";
+import BackButton from "../components/BackButton";
 
 const User = () => {
   const { id } = useParams();
@@ -23,11 +24,11 @@ const User = () => {
   }, [id]);
 
   const getData = async () => {
-    setShowLoader(true)
+    setShowLoader(true);
     const res = await getUserData(id);
     if (!res?.data?.errors && res?.data?.data?.getUser) {
       setUserData(res?.data?.data?.getUser);
-      setShowLoader(false)
+      setShowLoader(false);
     } else {
       navigate("/friends");
     }
@@ -36,9 +37,7 @@ const User = () => {
     <AppLayout>
       <div className="lg:p-10 p-5">
         <div className="mb-5">
-          <button className="bg-slate-400 px-3 py-1 rounded flex items-center font-semibold text-[15px] text-white" onClick={()=>navigate("/friends")}>
-            <IoMdArrowRoundBack /> <span>Back to friends</span>
-          </button>
+          <BackButton url={"/"} text={"Back to friends"} />
         </div>
         <div className="bg-white  rounded-md lg:p-10 p-5">
           <div className="mb-8 flex flex-row items-center justify-between  ">
@@ -52,12 +51,8 @@ const User = () => {
                 <h1 className=" font-semibold text-[18px] mt-2">
                   {userData?.name}
                 </h1>
-                <p className="">
-                  {userData?.bio}
-                </p>
-                <p className="">
-                  {userData?.email}
-                </p>
+                <p className="">{userData?.bio}</p>
+                <p className="">{userData?.email}</p>
               </div>
             </div>
 
@@ -101,7 +96,14 @@ const User = () => {
           )}
         </div>
         {userData?.posts?.map((item, index) => {
-          return <Post key={index} post={item} refreshData={getData} isGraph={true} />;
+          return (
+            <Post
+              key={index}
+              post={item}
+              refreshData={getData}
+              isGraph={true}
+            />
+          );
         })}
       </div>
       {showLoader && <Loader />}

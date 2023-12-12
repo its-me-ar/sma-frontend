@@ -10,7 +10,7 @@ const GuestLayout = ({ children }) => {
     <>
       <div className="lg:flex h-screen">
         <div className="lg:hidden block w-full">
-          <Header setIsOpen={setIsOpen} />
+          <Header setIsOpen={setIsOpen} isGuest={true} />
         </div>
         <div className="lg:w-[20%] lg:block hidden">
           <SideBar isMobile={false} />
