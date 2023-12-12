@@ -20,13 +20,8 @@ const Post = ({ post, refreshData, isGraph, isGuest }) => {
       toast("Link Copy");
       return host;
     } else {
-      if (host.includes("#")) {
-        toast("Link Copy");
-        return `${host}post/${id}`;
-      } else {
-        toast("Link Copy");
-        return `${host}/#/post/${id}`;
-      }
+      toast("Link Copy");
+      return `${host}post/${id}`;
     }
   };
 
