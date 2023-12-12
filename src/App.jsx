@@ -4,6 +4,7 @@ import {
   Routes,
   Navigate,
   HashRouter,
+  BrowserRouter,
 } from "react-router-dom";
 import Register from "./screens/Register";
 import { createContext } from "react";
@@ -24,7 +25,7 @@ function App() {
   const userData = userInfo?.userInfo;
   return (
     <UserContext.Provider value={{ userData, token: userInfo?.token }}>
-      <HashRouter basename="/">
+      <BrowserRouter basename="/">
         <Routes>
           {isINIT &&
             (isLogin ? (
@@ -59,7 +60,7 @@ function App() {
 
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
       <ToastContainer position="bottom-center"  theme="dark"  />
     </UserContext.Provider>
   );

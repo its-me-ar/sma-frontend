@@ -9,6 +9,7 @@ import profileIcon from "../assets/profile.jpg";
 import copy from "copy-to-clipboard";
 import { FaShareAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { formatPostText } from "../lib/common";
 
 const Post = ({ post, refreshData, isGraph, isGuest }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,7 +64,7 @@ const Post = ({ post, refreshData, isGraph, isGuest }) => {
             </div>
           </div>
           <div className="lg:p-4 p-2">
-            <h1>{post?.data}</h1>
+            <h1 dangerouslySetInnerHTML={formatPostText(post?.data)}></h1>
             {post?.media[0]?.type === "image" && (
               <div className="lg:p-2 p-1 rounded-lg ">
                 <img
