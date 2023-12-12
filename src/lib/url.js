@@ -3,12 +3,18 @@ import {
   IoMdNotifications,
   IoMdPeople,
   IoMdContact,
+  IoIosSearch,
 } from "react-icons/io";
 export const url = [
   {
     name: "Feed",
     url: "/",
     icon: IoIosImages,
+  },
+  {
+    name: "Discover",
+    url: "/discover",
+    icon: IoIosSearch,
   },
   {
     name: "Notification",

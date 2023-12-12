@@ -202,7 +202,19 @@ export const getAllPostByID = async (id,isGuest) => {
 export const getPostsByTag = async (tag) => {
   try {
     const options = {
-      url: "/post/feeds/"+tag,
+      url: "/feeds/tag/"+tag,
+    };
+    const res = await wrapperApi("get", options);
+    return res;
+  } catch (error) {
+    return error?.response;
+  }
+};
+
+export const getDiscover = async (search) => {
+  try {
+    const options = {
+      url: "/feeds/discover?search="+search,
     };
     const res = await wrapperApi("get", options);
     return res;
