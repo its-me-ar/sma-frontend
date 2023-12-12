@@ -5,6 +5,7 @@ import { getAllPostByID } from "../services/api.services";
 import Post from "../components/Post";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import GuestLayout from "../Layouts/GuestLayout";
+import BackButton from "../components/BackButton";
 
 const PostPage = ({ isLogin }) => {
   const { id } = useParams();
@@ -36,12 +37,7 @@ const PostPage = ({ isLogin }) => {
       <div className="lg:p-10 p-5">
         {isLogin && (
           <div className="mb-5">
-            <button
-              className="bg-slate-400 px-3 py-1 rounded flex items-center font-semibold text-[15px] text-white"
-              onClick={() => navigate("/")}
-            >
-              <IoMdArrowRoundBack /> <span>Back to Feeds</span>
-            </button>
+            <BackButton url={"/"} text={"Back to Feeds"} />
           </div>
         )}
 

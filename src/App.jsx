@@ -16,8 +16,9 @@ import Friends from "./screens/Friends";
 import Notification from "./screens/Notification";
 import User from "./screens/UserActivity";
 import PostPage from "./screens/PostPage";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import TagFeeds from "./screens/TagFeeds";
 export const UserContext = createContext();
 
 function App() {
@@ -38,10 +39,8 @@ function App() {
                 <Route path="/friends" element={<Friends />} />
                 <Route path="/user/:id" element={<User />} />
                 <Route path="/notification" element={<Notification />} />
-                <Route
-                  path="/post/:id"
-                  element={<PostPage isLogin={true} />}
-                />
+                <Route path="/post/:id" element={<PostPage isLogin={true} />} />
+                <Route path="/feeds/:tag" element={<TagFeeds  />} />
                 <Route
                   path="/sign-up"
                   element={<Navigate to={"/"} replace />}
@@ -61,7 +60,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-      <ToastContainer position="bottom-center"  theme="dark"  />
+      <ToastContainer position="bottom-center" theme="dark" />
     </UserContext.Provider>
   );
 }

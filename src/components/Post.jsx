@@ -15,14 +15,9 @@ const Post = ({ post, refreshData, isGraph, isGuest }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCover, setIscover] = useState(true);
   const getShareUrl = (id) => {
-    let host = window.location.href;
-    if (host.includes("post")) {
-      toast("Link Copy");
-      return host;
-    } else {
-      toast("Link Copy");
-      return `${host}post/${id}`;
-    }
+    const domain = window.location.origin;
+    toast("Link Copy");
+    return `${domain}/post/${id}`;
   };
 
   return (
