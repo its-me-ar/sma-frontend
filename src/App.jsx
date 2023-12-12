@@ -1,6 +1,5 @@
 import { Login } from "./screens/Login";
 import {
-  BrowserRouter,
   Route,
   Routes,
   Navigate,
@@ -16,7 +15,8 @@ import Friends from "./screens/Friends";
 import Notification from "./screens/Notification";
 import User from "./screens/UserActivity";
 import PostPage from "./screens/PostPage";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export const UserContext = createContext();
 
 function App() {
@@ -38,21 +38,29 @@ function App() {
                 <Route path="/user/:id" element={<User />} />
                 <Route path="/notification" element={<Notification />} />
                 <Route
+                  path="/post/:id"
+                  element={<PostPage isLogin={true} />}
+                />
+                <Route
                   path="/sign-up"
                   element={<Navigate to={"/"} replace />}
                 />
               </>
             ) : (
               <>
-             
+                <Route
+                  path="/post/:id"
+                  element={<PostPage isLogin={false} />}
+                />
                 <Route path="/" element={<Login setToken={setToken} />} />
                 <Route path="/sign-up" element={<Register />} />
               </>
             ))}
-           <Route path="/post/:id" element={<PostPage />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HashRouter>
+      <ToastContainer position="bottom-center"  theme="dark"  />
     </UserContext.Provider>
   );
 }

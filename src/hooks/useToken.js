@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 export let logoutUser = () => {};
 
 export const getTokenFromAPP = () => {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const userInfo = localStorage.getItem("userInfo");
   if (token && userInfo) {
     const userData = JSON.parse(userInfo);
@@ -28,7 +28,7 @@ const getUserInfo = async () => {
 
 export default function useToken() {
   const getToken = useCallback(() => {
-    const tokenString = sessionStorage.getItem("token");
+    const tokenString = localStorage.getItem("token");
     try {
       return tokenString;
     } catch (error) {
@@ -39,14 +39,14 @@ export default function useToken() {
   const [token, setToken] = useState(undefined);
   const [userInfo, setUserInfo] = useState(null);
   const saveToken = useCallback(({ token, userInfo }) => {
-    sessionStorage.setItem("token", token);
+    localStorage.setItem("token", token);
     localStorage.setItem("userInfo", JSON.stringify(userInfo));
     setToken(token);
   }, []);
 
   const logout = useCallback(() => {
     localStorage.removeItem("userInfo");
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
     setUserInfo(null);
     setToken(null);
   }, []);

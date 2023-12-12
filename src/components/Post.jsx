@@ -6,24 +6,28 @@ import CommentCard from "./CommentCard";
 import { RiMessage3Line } from "react-icons/ri";
 import CommentModal from "./CommentModal";
 import profileIcon from "../assets/profile.jpg";
-// import { UserContext } from "../App";
-import copy from 'copy-to-clipboard';
+import copy from "copy-to-clipboard";
 import { FaShareAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
 
-
-const Post = ({ post, refreshData, isGraph }) => {
+const Post = ({ post, refreshData, isGraph, isGuest }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCover, setIscover] = useState(true);
-  // const { userData } = useContext(UserContext);
-
-  const getShareUrl = (id)=>{
-    let host = window.location.href
-    if(host.includes("#")){
-      return `${host}post/${id}`
-    }else{
-      return `${host}/#/post/${id}`
+  const getShareUrl = (id) => {
+    let host = window.location.href;
+    if (host.includes("post")) {
+      toast("Link Copy");
+      return host;
+    } else {
+      if (host.includes("#")) {
+        toast("Link Copy");
+        return `${host}post/${id}`;
+      } else {
+        toast("Link Copy");
+        return `${host}/#/post/${id}`;
+      }
     }
-  }
+  };
 
   return (
     <>
@@ -50,9 +54,11 @@ const Post = ({ post, refreshData, isGraph }) => {
             </div>
 
             <div>
-              <button onClick={()=>copy(getShareUrl(post?._id))} className="flex items-center  text-[15px] bg-gray-600 hover:bg-black px-3 py-1 rounded-md text-white ">
+              <button
+                onClick={() => copy(getShareUrl(post?._id))}
+                className="flex items-center  text-[15px] bg-gray-600 hover:bg-black px-3 py-1 rounded-md text-white "
+              >
                 <span>Share</span> <FaShareAlt className="ml-2" />
-
               </button>
             </div>
           </div>
@@ -88,7 +94,7 @@ const Post = ({ post, refreshData, isGraph }) => {
               <div>
                 <p className="text-[16px] font-semibold ml-4"> Comments</p>
               </div>
-              {/* {userData && ( */}
+              {!isGuest && (
                 <div className="m-2  ">
                   <button
                     className={` px-3 py-1 rounded  hover:bg-blue-600 bg-blue-500 text-white `}
@@ -99,7 +105,7 @@ const Post = ({ post, refreshData, isGraph }) => {
                     </div>
                   </button>
                 </div>
-              {/* )} */}
+              )}
             </div>
 
             {post?.comments?.map((item, index) => {

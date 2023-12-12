@@ -187,12 +187,12 @@ export const getUserData = async (id) => {
   }
 };
 
-export const getAllPostByID = async (id) => {
+export const getAllPostByID = async (id,isGuest) => {
   try {
     const options = {
       url: "/post/"+id,
     };
-    const res = await wrapperApi("get", options);
+    const res = await wrapperApi("get", options,isGuest);
     return res;
   } catch (error) {
     return error?.response;
