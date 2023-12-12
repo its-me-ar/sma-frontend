@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { findFriends, sendRequest } from "../services/api.services";
 import profilePic from "../assets/profile.jpg";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 const RightSideBar = ({ userInfo }) => {
   const [nonfriends, setNonfriends] = useState([]);
   useEffect(() => {
@@ -24,9 +25,9 @@ const RightSideBar = ({ userInfo }) => {
     });
     if (res?.status === 200) {
       getData();
-      alert("Request Send");
+      toast("Friend request Send!");
     } else {
-      alert("Something went wrong");
+      toast("Something went wrong");
     }
   };
 
@@ -59,7 +60,7 @@ const RightSideBar = ({ userInfo }) => {
                 </div>
                 <div>
                   <button
-                    className="text-[13px] font-semibold bg-blue-500 px-2 h-[30px] rounded-xl text-white"
+                    className="text-[13px] font-semibold bg-blue-500 px-2 py-1 rounded-xl text-white"
                     onClick={() => addFriends({ id: item?._id })}
                   >
                     Add friend

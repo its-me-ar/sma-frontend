@@ -8,11 +8,13 @@ import { FaUserCheck } from "react-icons/fa";
 import Post from "../components/Post";
 import ReactTimeago from "react-timeago";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import Loader from "../components/Loader";
 
 const User = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -21,9 +23,11 @@ const User = () => {
   }, [id]);
 
   const getData = async () => {
+    setShowLoader(true)
     const res = await getUserData(id);
     if (!res?.data?.errors && res?.data?.data?.getUser) {
       setUserData(res?.data?.data?.getUser);
+      setShowLoader(false)
     } else {
       navigate("/friends");
     }
@@ -100,6 +104,7 @@ const User = () => {
           return <Post key={index} post={item} refreshData={getData} isGraph={true} />;
         })}
       </div>
+      {showLoader && <Loader />}
     </AppLayout>
   );
 };
