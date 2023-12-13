@@ -1,13 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { IoIosLogOut } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../hooks/useToken";
 import { url } from "../lib/url";
 import { useLocation } from "react-router-dom";
 import profileIcon from "../assets/profile.jpg";
+import socket from "../services/socket";
+import { getNotifications } from "../services/api.services";
+import { NotificationContext } from "../App";
+
 const SideBar = ({ userInfo, isMobile }) => {
   const { pathname } = useLocation();
   const [activeNav, setActiveNav] = useState(pathname);
+  const { notification, setNotification } = useContext(NotificationContext);
+  const [notificationCount, setNotificationCount] = useState(0);
+
+  useEffect(() => {
+    socket.on("friendRequest", (data) => {
+      if (data.message) {
+        getAllNotifications();
+      }
+    });
+
+    return () => {
+      socket.off("friendRequest");
+    };
+  }, []);
+
+  useEffect(() => {
+    const count = notification?.filter((item) => !item?.isOpen).length;
+    setNotificationCount(count);
+  }, [notification]);
+
+
+
+  const getData = useCallback(async () => {
+    await getAllNotifications();
+  }, []);
+
+  const getAllNotifications = async () => {
+    const res = await getNotifications();
+    setNotification(res?.data?.notifications);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+
   useEffect(() => {
     setActiveNav(pathname);
   }, [pathname]);
@@ -47,7 +87,15 @@ const SideBar = ({ userInfo, isMobile }) => {
                   }}
                 >
                   {item.icon({ size: "20" })}
-                  <span className="ml-3 text-[15px]"> {item?.name}</span>
+                  <span className="ml-3 text-[15px]">
+                    {item?.name}
+                    {item.name === "Notification" &&
+                      notificationCount !== 0 && (
+                        <span className="absolute px-1 py-[2px]  mt-[-2px] animate-pulse ml-1 rounded-full text-white text-[8px] bg-red-500">
+                          {notificationCount}
+                        </span>
+                      )}
+                  </span>
                 </Link>
               </div>
             );
