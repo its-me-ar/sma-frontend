@@ -9,10 +9,8 @@ export const loginUser = async (values) => {
       },
     };
     const res = await wrapperApi("post", options);
-    console.log(res);
     return res;
   } catch (error) {
-    console.log(error);
     return error?.response;
   }
 };
@@ -187,12 +185,12 @@ export const getUserData = async (id) => {
   }
 };
 
-export const getAllPostByID = async (id,isGuest) => {
+export const getAllPostByID = async (id, isGuest) => {
   try {
     const options = {
-      url: "/post/"+id,
+      url: "/post/" + id,
     };
-    const res = await wrapperApi("get", options,isGuest);
+    const res = await wrapperApi("get", options, isGuest);
     return res;
   } catch (error) {
     return error?.response;
@@ -202,7 +200,7 @@ export const getAllPostByID = async (id,isGuest) => {
 export const getPostsByTag = async (tag) => {
   try {
     const options = {
-      url: "/feeds/tag/"+tag,
+      url: "/feeds/tag/" + tag,
     };
     const res = await wrapperApi("get", options);
     return res;
@@ -214,9 +212,33 @@ export const getPostsByTag = async (tag) => {
 export const getDiscover = async (search) => {
   try {
     const options = {
-      url: "/feeds/discover?search="+search,
+      url: "/feeds/discover?search=" + search,
     };
     const res = await wrapperApi("get", options);
+    return res;
+  } catch (error) {
+    return error?.response;
+  }
+};
+
+export const getNotifications = async () => {
+  try {
+    const options = {
+      url: "/notification",
+    };
+    const res = await wrapperApi("get", options);
+    return res;
+  } catch (error) {
+    return error?.response;
+  }
+};
+
+export const updateNotificationsById = async (id) => {
+  try {
+    const options = {
+      url: "/notification/" + id,
+    };
+    const res = await wrapperApi("put", options);
     return res;
   } catch (error) {
     return error?.response;

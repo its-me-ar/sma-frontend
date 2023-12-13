@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getTokenFromAPP } from "../hooks/useToken";
-const baseURL = "https://sma-backend.vercel.app/api/";
+import { serverApiUrl } from "./config";
+const baseURL = serverApiUrl
 const client = axios.create({
   baseURL: baseURL,
   headers: {

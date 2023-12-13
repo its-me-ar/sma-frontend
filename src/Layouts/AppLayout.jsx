@@ -8,6 +8,7 @@ import Loader from "../components/Loader";
 
 export const LodaerContext = createContext();
 
+
 const AppLayout = ({ children }) => {
   const { userData } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
@@ -20,19 +21,20 @@ const AppLayout = ({ children }) => {
             <Header setIsOpen={setIsOpen} />
           </div>
           <div className="lg:w-[20%] lg:block hidden">
-            <SideBar  userInfo={userData} isMobile={false} />
+            <SideBar userInfo={userData} isMobile={false} />
           </div>
 
           <div className="lg:w-[60%] w-fulll  bg-slate-50 lg:mt-[0px] mt-[60px] overflow-y-auto">
             {children}
           </div>
           <div className="lg:w-[20%] lg:block hidden overflow-y-auto">
-            <RightSideBar  userInfo={userData}/>
+            <RightSideBar userInfo={userData} />
           </div>
         </div>
         <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
           <SideBar userInfo={userData} isMobile={true} />
         </Drawer>
+
         {showLoader && <Loader />}
       </LodaerContext.Provider>
     </>

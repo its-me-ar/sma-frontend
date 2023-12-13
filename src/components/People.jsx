@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import profileIcon from "../assets/profile.jpg";
 import { UserContext } from "../App";
 import { FaUserCheck } from "react-icons/fa";
