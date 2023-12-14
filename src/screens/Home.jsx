@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import AppLayout from "../Layouts/AppLayout";
 import AddPost from "../components/AddPost";
 import { getAllPost } from "../services/api.services";
-import Post from "../components/Post";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
+import PostSkeleton from "../components/PostSkeleton";
 
-export const Home = () => {
+const Post = lazy(() => import("../components/Post"));
+
+const Home = () => {
   const [posts, setPosts] = useState([]);
   const [showLoader, setShowLoader] = useState(false);
 
@@ -15,14 +17,14 @@ export const Home = () => {
   }, []);
 
   const getData = async () => {
-    setShowLoader(true)
+    setShowLoader(true);
     const res = await getAllPost();
     if (res?.status === 200) {
       setPosts(res?.data?.posts);
-      setShowLoader(false)
-    }else{
-      toast("Error in fetching data")
-      setShowLoader(false)
+      setShowLoader(false);
+    } else {
+      toast("Error in fetching data");
+      setShowLoader(false);
     }
   };
 
@@ -31,11 +33,15 @@ export const Home = () => {
       <div className="lg:p-10 p-5">
         <AddPost refreshData={getData} />
         {posts?.map((item, index) => {
-          return <Post key={index} post={item} refreshData={getData} />;
+          return (
+            <Suspense key={index} fallback={<PostSkeleton />}>
+              <Post post={item} refreshData={getData} />
+            </Suspense>
+          );
         })}
-     
       </div>
       {showLoader && <Loader />}
     </AppLayout>
   );
 };
+export default Home;

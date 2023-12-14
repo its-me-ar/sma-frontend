@@ -1,15 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { lazy, useState } from "react";
 import TimeAgo from "react-timeago";
 import { Player } from "video-react";
 import "video-react/dist/video-react.css";
-import CommentCard from "./CommentCard";
 import { RiMessage3Line } from "react-icons/ri";
-import CommentModal from "./CommentModal";
 import profileIcon from "../assets/profile.jpg";
 import copy from "copy-to-clipboard";
 import { FaShareAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { formatPostText } from "../lib/common";
+
+const CommentModal = lazy(() => import("./CommentModal"));
+const CommentCard = lazy(() => import("./CommentCard"));
 
 const Post = ({ post, refreshData, isGraph, isGuest }) => {
   const [isOpen, setIsOpen] = useState(false);

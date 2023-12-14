@@ -1,12 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { Suspense, lazy, useContext, useEffect, useState } from "react";
 import AppLayout from "../Layouts/AppLayout";
 import { UserContext } from "../App";
 import Label from "../components/Label";
 import Input from "../components/Input";
-import ProfilePicUploadButton from "../components/ProfilePicUploadButton";
 import { uploadPofile } from "../services/api.services";
-import UpdatePassword from "../components/UpdatePassword";
 import profileIcon from "../assets/profile.jpg";
+
+const UpdatePassword = lazy(() => import("../components/UpdatePassword"));
+
+
+const ProfilePicUploadButton = lazy(() =>
+  import("../components/ProfilePicUploadButton")
+);
+
 const Profile = ({ setToken }) => {
   const { userData, token } = useContext(UserContext);
   const [edit, setEdit] = useState(false);
@@ -64,10 +70,12 @@ const Profile = ({ setToken }) => {
                 alt={userData?.name}
               />
             </div>
-            <ProfilePicUploadButton
-              updateLocaldata={updateLocaldata}
-              userData={userData}
-            />
+            <Suspense>
+              <ProfilePicUploadButton
+                updateLocaldata={updateLocaldata}
+                userData={userData}
+              />
+            </Suspense>
           </div>
           <div>
             <div>
@@ -145,11 +153,13 @@ const Profile = ({ setToken }) => {
         </div>
       </div>
       {isOpen && (
-        <UpdatePassword
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          id={userData?._id}
-        />
+        <Suspense>
+          <UpdatePassword
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            id={userData?._id}
+          />
+        </Suspense>
       )}
     </AppLayout>
   );

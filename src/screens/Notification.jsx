@@ -1,12 +1,19 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, {
+  Suspense,
+  lazy,
+  useCallback,
+  useContext,
+  useEffect,
+} from "react";
 import AppLayout from "../Layouts/AppLayout";
 import {
   getNotifications,
   updateNotificationsById,
 } from "../services/api.services";
 import { NotificationContext } from "../App";
-import NotificationCard from "../components/NotificationCard";
 import { useNavigate } from "react-router";
+
+const NotificationCard = lazy(() => import("../components/NotificationCard"));
 
 const Notification = () => {
   const { setNotification, notification } = useContext(NotificationContext);
@@ -48,7 +55,9 @@ const Notification = () => {
                     className="flex flex-row items-center justify-between my-4 bg-gray-50 p-2 cursor-pointer hover:bg-gray-100"
                     onClick={() => handleNotification(item?._id, item?.isOpen)}
                   >
-                    <NotificationCard item={item} />
+                    <Suspense>
+                      <NotificationCard item={item} />
+                    </Suspense>
                   </div>
                 </div>
               );
