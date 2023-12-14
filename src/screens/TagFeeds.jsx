@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import AppLayout from "../Layouts/AppLayout";
 import { useNavigate, useParams } from "react-router";
 import { getPostsByTag } from "../services/api.services";
 import Loader from "../components/Loader";
-import Post from "../components/Post";
-import BackButton from "../components/BackButton";
+
+import PostSkeleton from "../components/PostSkeleton";
+
+const Post = lazy(() => import("../components/Post"));
+
+const BackButton = lazy(() => import("../components/BackButton"));
 
 const TagFeeds = () => {
   const { tag } = useParams();
@@ -31,7 +35,7 @@ const TagFeeds = () => {
     <AppLayout>
       <div className="lg:p-10 p-5">
         <div>
-            <BackButton url={"/"} text={"Back to Feeds"}/>
+          <BackButton url={"/"} text={"Back to Feeds"} />
         </div>
         <div className="bg-white  rounded-md  p-5 my-5">
           <h1 className="text-[16px] text-gray-500 font-medium">
@@ -40,7 +44,11 @@ const TagFeeds = () => {
           </h1>
         </div>
         {posts?.map((item, index) => {
-          return <Post key={index} post={item} refreshData={getData} />;
+          return (
+            <Suspense key={index} fallback={<PostSkeleton />}>
+              <Post post={item} refreshData={getData} />
+            </Suspense>
+          );
         })}
       </div>
       {showLoader && <Loader />}

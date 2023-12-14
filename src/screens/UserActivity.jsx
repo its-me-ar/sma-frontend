@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { Suspense, lazy, useState } from "react";
 import AppLayout from "../Layouts/AppLayout";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { getUserData } from "../services/api.services";
 import profileIcon from "../assets/profile.jpg";
 import { FaUserCheck } from "react-icons/fa";
-import Post from "../components/Post";
 import ReactTimeago from "react-timeago";
-import { IoMdArrowRoundBack } from "react-icons/io";
 import Loader from "../components/Loader";
-import BackButton from "../components/BackButton";
+import PostSkeleton from "../components/PostSkeleton";
+
+const Post = lazy(() => import("../components/Post"));
+
+const BackButton = lazy(() => import("../components/BackButton"));
 
 const User = () => {
   const { id } = useParams();
@@ -97,12 +99,9 @@ const User = () => {
         </div>
         {userData?.posts?.map((item, index) => {
           return (
-            <Post
-              key={index}
-              post={item}
-              refreshData={getData}
-              isGraph={true}
-            />
+            <Suspense key={index} fallback={<PostSkeleton />}>
+              <Post post={item} refreshData={getData} isGraph={true} />
+            </Suspense>
           );
         })}
       </div>

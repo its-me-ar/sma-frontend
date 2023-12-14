@@ -1,10 +1,12 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { lazy, useContext, useRef, useState } from "react";
 import { UserContext } from "../App";
-import UploadButton from "./UploadButton";
 import { IoMdSend } from "react-icons/io";
 import { addPost } from "../services/api.services";
 import { LodaerContext } from "../Layouts/AppLayout";
 import profileIcon from "../assets/profile.jpg";
+
+const UploadButton = lazy(()=>import("./UploadButton"))
+
 const AddPost = ({ refreshData }) => {
   const { userData } = useContext(UserContext);
   const { setShowLoader } = useContext(LodaerContext);

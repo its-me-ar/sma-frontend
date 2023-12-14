@@ -1,19 +1,23 @@
 import { Login } from "./screens/Login";
 import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
-import Register from "./screens/Register";
-import { createContext, useState } from "react";
+import { Suspense, createContext, lazy, useState } from "react";
 import useToken from "./hooks/useToken";
-import { Home } from "./screens/Home";
-import NotFound from "./screens/NotFound";
-import Profile from "./screens/Profile";
-import Friends from "./screens/Friends";
-import Notification from "./screens/Notification";
-import User from "./screens/UserActivity";
-import PostPage from "./screens/PostPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import TagFeeds from "./screens/TagFeeds";
-import Discovery from "./screens/Discovery";
+
+import Loader from "./components/Loader";
+
+const Home = lazy(() => import("./screens/Home"));
+const Profile = lazy(() => import("./screens/Profile"));
+const Friends = lazy(() => import("./screens/Friends"));
+const Notification = lazy(() => import("./screens/Notification"));
+const User = lazy(() => import("./screens/UserActivity"));
+const PostPage = lazy(() => import("./screens/PostPage"));
+const TagFeeds = lazy(() => import("./screens/TagFeeds"));
+const Discovery = lazy(() => import("./screens/Discovery"));
+const Register = lazy(() => import("./screens/Register"));
+const NotFound = lazy(() => import("./screens/NotFound"));
+
 export const UserContext = createContext();
 export const NotificationContext = createContext();
 function App() {
@@ -28,20 +32,70 @@ function App() {
             {isINIT &&
               (isLogin ? (
                 <>
-                  <Route path="/" element={<Home />} />
+                  <Route
+                    path="/"
+                    element={
+                      <Suspense fallback={<Loader />}>
+                        <Home />
+                      </Suspense>
+                    }
+                  />
                   <Route
                     path="/profile"
-                    element={<Profile setToken={setToken} />}
+                    element={
+                      <Suspense fallback={<Loader />}>
+                        <Profile setToken={setToken} />
+                      </Suspense>
+                    }
                   />
-                  <Route path="/friends" element={<Friends />} />
-                  <Route path="/user/:id" element={<User />} />
-                  <Route path="/notification" element={<Notification />} />
-                  <Route path="/discover" element={<Discovery />} />
+                  <Route
+                    path="/friends"
+                    element={
+                      <Suspense fallback={<Loader />}>
+                        <Friends />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="/user/:id"
+                    element={
+                      <Suspense fallback={<Loader />}>
+                        <User />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="/notification"
+                    element={
+                      <Suspense fallback={<Loader />}>
+                        <Notification />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="/discover"
+                    element={
+                      <Suspense fallback={<Loader />}>
+                        <Discovery />
+                      </Suspense>
+                    }
+                  />
                   <Route
                     path="/post/:id"
-                    element={<PostPage isLogin={true} />}
+                    element={
+                      <Suspense fallback={<Loader />}>
+                        <PostPage isLogin={true} />
+                      </Suspense>
+                    }
                   />
-                  <Route path="/feeds/:tag" element={<TagFeeds />} />
+                  <Route
+                    path="/feeds/:tag"
+                    element={
+                      <Suspense fallback={<Loader />}>
+                        <TagFeeds />
+                      </Suspense>
+                    }
+                  />
                   <Route
                     path="/sign-up"
                     element={<Navigate to={"/"} replace />}
@@ -51,14 +105,39 @@ function App() {
                 <>
                   <Route
                     path="/post/:id"
-                    element={<PostPage isLogin={false} />}
+                    element={
+                      <Suspense fallback={<Loader />}>
+                        <PostPage isLogin={false} />
+                      </Suspense>
+                    }
                   />
-                  <Route path="/" element={<Login setToken={setToken} />} />
-                  <Route path="/sign-up" element={<Register />} />
+                  <Route
+                    path="/"
+                    element={
+                      <Suspense fallback={<Loader />}>
+                        <Login setToken={setToken} />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="/sign-up"
+                    element={
+                      <Suspense fallback={<Loader />}>
+                        <Register />
+                      </Suspense>
+                    }
+                  />
                 </>
               ))}
 
-            <Route path="*" element={<NotFound />} />
+            <Route
+              path="*"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <NotFound />
+                </Suspense>
+              }
+            />
           </Routes>
         </BrowserRouter>
         <ToastContainer position="bottom-center" theme="dark" />

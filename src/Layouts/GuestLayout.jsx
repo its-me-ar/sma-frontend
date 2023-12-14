@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import Header from "../components/Header";
-import SideBar from "../components/SideBar";
-import RightSideBar from "../components/RightSideBar";
-import Drawer from "../components/Drawer";
+import React, { lazy, useState } from "react";
+
+
+const Header = lazy(()=>import("../components/Header"))
+const Drawer = lazy(()=>import("../components/Drawer"))
+const RightSideBar = lazy(()=>import("../components/RightSideBar"))
+const SideBar = lazy(()=>import("../components/SideBar"))
 
 const GuestLayout = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
