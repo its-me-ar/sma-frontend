@@ -1,10 +1,13 @@
-import React, { createContext, useContext, useState } from "react";
-import SideBar from "../components/SideBar";
-import RightSideBar from "../components/RightSideBar";
+import React, { createContext, lazy, useContext, useState } from "react";
+
 import { UserContext } from "../App";
-import Header from "../components/Header";
-import Drawer from "../components/Drawer";
 import Loader from "../components/Loader";
+
+const Header = lazy(()=>import("../components/Header"))
+const Drawer = lazy(()=>import("../components/Drawer"))
+const RightSideBar = lazy(()=>import("../components/RightSideBar"))
+const SideBar = lazy(()=>import("../components/SideBar"))
+
 
 export const LodaerContext = createContext();
 

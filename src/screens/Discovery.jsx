@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { Suspense, lazy, useState } from "react";
 import AppLayout from "../Layouts/AppLayout";
 import Loader from "../components/Loader";
 import { getDiscover } from "../services/api.services";
 import { toast } from "react-toastify";
-import Post from "../components/Post";
-import People from "../components/People";
+import PostSkeleton from "../components/PostSkeleton";
+
+
+const Post = lazy(()=>import("../components/Post"))
+const People = lazy(()=>import("../components/People"))
 
 const Discovery = () => {
   const [showLoader, setShowLoader] = useState(false);
@@ -61,7 +64,7 @@ const Discovery = () => {
                 <div className="grid lg:grid-cols-4 gap-2 md:grid-cols-3 grid-cols-2">
                   {data?.users?.map((item, index) => {
                     return (
-                      <People key={index} item={item} refreshData={getData} />
+                      <Suspense  key={index} ><People item={item} refreshData={getData} /></Suspense>
                     );
                   })}
                 </div>
@@ -70,7 +73,7 @@ const Discovery = () => {
             {data?.posts.length !== 0 && (
               <div className="bg-white  rounded-md  p-5 my-5">
                 {data?.posts?.map((item, index) => {
-                  return <Post key={index} post={item} refreshData={getData} />;
+                  return <Suspense key={index} fallback={<PostSkeleton/>}><Post  post={item} refreshData={getData} /></Suspense>;
                 })}
               </div>
             )}

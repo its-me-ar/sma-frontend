@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { Suspense, lazy, useContext, useEffect, useState } from "react";
 import AppLayout from "../Layouts/AppLayout";
 import { useNavigate, useParams } from "react-router-dom";
 import { getAllPostByID } from "../services/api.services";
-import Post from "../components/Post";
-import { IoMdArrowRoundBack } from "react-icons/io";
 import GuestLayout from "../Layouts/GuestLayout";
-import BackButton from "../components/BackButton";
+
+const Post = lazy(() => import("../components/Post"));
+
+const BackButton = lazy(() => import("../components/BackButton"));
 
 const PostPage = ({ isLogin }) => {
   const { id } = useParams();
@@ -40,7 +41,9 @@ const PostPage = ({ isLogin }) => {
           </div>
         )}
 
-        <Post post={userPostData} refreshData={getData} isGuest={!isLogin} />
+        <Suspense>
+          <Post post={userPostData} refreshData={getData} isGuest={!isLogin} />
+        </Suspense>
       </div>
     );
   };
